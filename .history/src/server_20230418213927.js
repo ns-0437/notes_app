@@ -1,0 +1,41 @@
+//initialization of express
+const express = require('express');
+const app=express();
+
+//initialization of mongoose
+const mongoose = require('mongoose');
+const Note = require('./models/Note');
+
+
+mongoose.connect("mongodb+srv://nsharma_03:Navin%4022670437@cluster0.c4hurkz.mongodb.net/notesdb").then(function()
+ {  
+    app.get("/", function(req, res){
+    res.send("This is the Home Page");
+    });
+
+    
+    app.get("/notes/list", async function(req, res){
+        var notes = await Note.find();
+        res.json(notes);
+        // res.send('this is notes page');
+    });  
+
+    app.get("/notes/list/add", async function(req, res){
+        const newNote = new Note({
+            id: "0001",
+            userid: "navin1282002@gmail.com",
+            title: "My First Note",
+            content: "This is the content"
+        });     
+        await newNote.save();
+        const response = { message: New Note created"}
+        res.json(notes);
+    });
+});
+
+
+
+//Starting the server on the port
+app.listen(5000, function(){
+    console.log("Server started at PORT:5000")
+});
