@@ -4,7 +4,7 @@ const app=express();
 
 //initialization of mongoose
 const mongoose = require('mongoose');
-const Note = require('./models/Note');
+// const Note = require('./models/Note');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
@@ -22,7 +22,7 @@ mongoose.connect(mongoDBPath).then(function()
         //res.send("This is the Home Page");
     });
 
-    const noteRouter = require(('./routes/Note'));
+    const noteRouter = require(('/src/routes/Note.js'));
     app.use = ("/notes", noteRouter);
     
 });
